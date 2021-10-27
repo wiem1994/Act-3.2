@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+product detail
+ {% for product in products %}
+{{product.id}}
+{{product.Price}}
+{% endfor %}
+{% endblock %}

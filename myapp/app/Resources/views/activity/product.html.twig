@@ -1,0 +1,30 @@
+
+
+{% extends 'base.html.twig' %}
+{% block body %}
+product page / display all Products
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Label</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+  {% for product in products %}
+    <tr>
+      <th scope="row">{{product.id}}</th>
+      <td>{{product.productLabel}}</td>
+      <td>{{product.Price}}</td>
+      <td>{{product.Quantity}}</td> 
+      <td><a href="/get-product/{id}">detail</a></td>
+      <td><a href="/product/edit/{id}/{productLabel}/{Price}/{Quantity}">edit</a></td>
+    </tr>
+
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

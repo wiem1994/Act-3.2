@@ -45,9 +45,16 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="Address", type="string", length=255)
+     * @ORM\Column(name="Adress", type="string", length=255)
      */
-    private $address;
+    private $adress;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="Birthdate", type="datetime")
+     */
+    private $birthdate;
 
 
     /**
@@ -77,7 +84,7 @@ class User
     /**
      * Get firstname
      *
-     * @return string
+     * @return strin
      */
     public function getFirstname()
     {
@@ -133,26 +140,50 @@ class User
     }
 
     /**
-     * Set address
+     * Set adress
      *
-     * @param string $address
+     * @param string $adress
      *
      * @return User
      */
-    public function setAddress($address)
+    public function setAdress($adress)
     {
-        $this->address = $address;
+        $this->adress = $adress;
 
         return $this;
     }
 
     /**
-     * Get address
+     * Get adress
      *
      * @return string
      */
-    public function getAddress()
+    public function getAdress()
     {
-        return $this->address;
+        return $this->adress;
+    }
+
+    /**
+     * Set birthdate
+     *
+     * @param \DateTime $birthdate
+     *
+     * @return User
+     */
+    public function setBirthdate($birthdate)
+    {
+        $this->birthdate = $birthdate;
+
+        return $this;
+    }
+
+    /**
+     * Get birthdate
+     *
+     * @return \DateTime
+     */
+    public function getBirthdate()
+    {
+        return $this->birthdate;
     }
 }
