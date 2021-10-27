@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+
+
 /**
  * UserRepository
  *
@@ -10,4 +12,41 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findById(int $id)
+
+    {
+        $query = $this->_em->createQuery('SELECT u FROM AppBundle:User u WHERE u.id = :id');
+
+        $query->setParameter('id', $id);
+
+        return $query->getResult();
+    }
+
+    public function findAllByCity(string $city)
+
+    {
+        $query = $this->_em->createQuery('SELECT u FROM AppBundle:User u WHERE u.adress = :adress');
+        $query->setParameter('adress', $city);
+        return $query->getResult();
+    }
+
+    public function findByAddressAndName(string $address, string $email)
+
+    {
+
+        $query = $this->_em->createQuery('SELECT u FROM AppBundle:User u WHERE u.adress = :adress AND u.email = :email');
+        $query->setParameters(array(
+
+            'adress' => $address,
+
+            'email' => $email,
+
+
+
+        ));
+
+
+
+        return $query->getResult();
+    }
 }

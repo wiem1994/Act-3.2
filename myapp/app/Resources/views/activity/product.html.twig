@@ -20,8 +20,8 @@ product page / display all Products
       <td>{{product.productLabel}}</td>
       <td>{{product.Price}}</td>
       <td>{{product.Quantity}}</td> 
-      <td><a href="/get-product/{id}">detail</a></td>
-      <td><a href="/product/edit/{id}/{productLabel}/{Price}/{Quantity}">edit</a></td>
+      <td><a href="/get-product/{{product.id}}">detail</a></td>
+      <td><a href="/product/edit/{{product.id}}/{{product.productLabel}}/{{product.Price}}/{{product.Quantity}}">edit</a></td>
     </tr>
 
     {% endfor %}

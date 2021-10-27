@@ -7,7 +7,7 @@ use AppBundle\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\HttpFoundation\Response;
 
 class productController extends Controller
 {
@@ -21,27 +21,68 @@ class productController extends Controller
     }
 
     /**
-     * @Route("/product/create", name="create_product")
+     * @Route("/product/create/{productLabel}/{price}/{quantity}", name="create_product")
      */
-    public function createproduct(Request $request)
+    public function createproduct($productLabel, $price, $quantity)
+
     {
-        return $this->render('activity/createproduct.html.twig');
+        $product = new Produit();
+
+
+
+        $product->setproductLabel($productLabel);
+
+
+
+        $product->setPrice($price);
+
+
+
+        $product->setQuantity($quantity);
+
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+
+
+        $entityManager->persist($product);
+
+
+
+        $entityManager->flush();
+
+
+
+        return new Response('saved product n ' . $product->getId());
     }
 
     /**
-     * @Route("/product/edit/{id}/{productLabel}/{Price}/{Quantity}", name="edit_product")
+     * @Route("/product/edit/{id}/{productLabel}/{price}/{quantity}", name="edit_product")
      */
-    public function editproduct($id, Request $request)
+    public function editproduct($id, $productLabel, $price, $quantity)
     {
-        return $this->render('activity/editproduct.html.twig');
-    }
+        $em = $this->getDoctrine()->getManager();
 
+        $product = $em->getRepository('AppBundle:Produit')->find($id);
+
+        $product->setProductLabel($productLabel);
+
+        $product->setPrice($price);
+
+        $product->setQuantity($quantity);
+
+        $em->flush();
+        return new Response($product->getId());
+
+        //        return $this->render('activity/editproduct.html.twig');
+    }
     /**
      * @Route("/get-product/{id}", name="detail_product")
      */
     public function detailproduct($id)
     {
-        $products =  $this->getDoctrine()->getManager()->getRepository('AppBundle:Produit')->findOneBy($id);
+        $products =  $this->getDoctrine()->getManager()->getRepository('AppBundle:Produit')->find($id);
         var_dump($products);
         return $this->render('activity/detailproduct.html.twig', array('products' => $products));
     }

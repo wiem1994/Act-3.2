@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Response;
 
 class actController extends Controller
 {
@@ -57,5 +58,61 @@ class actController extends Controller
             //  die('yes');
         }
         return $this->render('activity/create.html.twig', array('form' => $form->createView()));
+    }
+
+    /**
+
+     * @Route("/getUserById/{id}", name="getUserById")
+
+     */
+
+    public function findUserById($id)
+
+    {
+        $users = $this->getDoctrine()->getRepository('AppBundle:User')->findById($id);
+        return new Response($id);
+        //  return $this->render('activity/index.html.twig', array('users' => $users));
+    }
+
+
+
+    /**
+
+     * @Route("/getUserByCity/{city}", name="getUserByCity")
+
+     */
+
+
+
+    public function findAllByCity($city)
+
+    {
+
+        $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAllByCity($city);
+
+        // return new Response(vardump($users));
+
+        return $this->render('activity/index.html.twig', array('users' => $users));
+    }
+
+
+
+    /**
+
+     * @Route("/findByAddressAndEmail/{address}/{email}", name="getUserByCityAndEmail")
+
+     */
+
+
+
+    public function findByAddressAndName($adress, $email)
+
+    {
+
+        $users = $this->getDoctrine()->getRepository('AppBundle:User')->findByAddressAndName($adress, $email);
+
+        return new Response($adress, $email);
+
+        //return $this->render('activity/index.html.twig', array('users' => $users));
     }
 }
